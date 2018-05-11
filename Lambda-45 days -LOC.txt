@@ -1,0 +1,26 @@
+import boto3
+import json
+
+from datetime import date, timedelta
+client = boto3.client('organizations')
+sns = boto3.client('sns')
+subscription = sns.Subscription('arn')
+TOPIC = SNS.Topic('arn')
+
+def lambda_handler(event, context):
+  resp = client.list_accounts_for_parent(ParentId='ou-gr8p-33ekwm0w')
+  joinedTimestamp = (resp["Accounts"][0]['JoinedTimestamp']).date()
+  
+  today = date.today()
+  difference = today - joinedTimestamp
+  
+  if (difference > timedelta(days=2)):
+      print("You are almost out of time!!!!!!!")
+      send_sns()
+def send_sns():
+  response = sns.publish(
+    TopicArn='arn:aws:sns:us-east-1:302841336010:Testsns',
+    Message='This is a 45 days notification '
+)
+
+ 
